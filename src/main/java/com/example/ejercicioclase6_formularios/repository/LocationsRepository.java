@@ -1,6 +1,6 @@
-package com.example.laboratorio4.repository;
+package com.example.ejercicioclase6_formularios.repository;
 
-import com.example.laboratorio4.entity.Locations;
+import com.example.ejercicioclase6_formularios.entity.Locations;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

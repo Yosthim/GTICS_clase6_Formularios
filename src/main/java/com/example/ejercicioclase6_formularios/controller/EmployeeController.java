@@ -1,8 +1,8 @@
-package com.example.laboratorio4.controller;
-import com.example.laboratorio4.entity.Employees;
-import com.example.laboratorio4.repository.DepartmentsRepository;
-import com.example.laboratorio4.repository.EmployeesRepository;
-import com.example.laboratorio4.repository.JobsRepository;
+package com.example.ejercicioclase6_formularios.controller;
+import com.example.ejercicioclase6_formularios.entity.Employees;
+import com.example.ejercicioclase6_formularios.repository.DepartmentsRepository;
+import com.example.ejercicioclase6_formularios.repository.EmployeesRepository;
+import com.example.ejercicioclase6_formularios.repository.JobsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.jws.WebParam;
-import javax.validation.Valid;
+//import javax.jws.WebParam;
+import jakarta.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -39,8 +41,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/new")
-    public String nuevoEmployeeForm() {
+    public String nuevoEmployeeForm(@ModelAttribute("employees") Employees employees, Model model) {
         //COMPLETAR
+        model.addAttribute("type", "new");
         return "employee/Frm";
     }
 
@@ -56,16 +59,16 @@ public class EmployeeController {
             return "employee/Frm";
         }else {
 
-            if (employees.getEmployeeid() == 0) {
+            if (employees.getEmployeeId() == 0) {
                 attr.addFlashAttribute("msg", "Empleado creado exitosamente");
-                employees.setHiredate(new Date());
+                employees.setHireDate(LocalDateTime.now());
                 employeesRepository.save(employees);
                 return "redirect:/employee";
             } else {
 
                 try {
-                    employees.setHiredate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaContrato));
-                } catch (ParseException e) {
+                    employees.setHireDate(LocalDateTime.parse(fechaContrato));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -76,10 +79,28 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/edit")
-    public String editarEmployee() {
+    public List<Employees> getListaJefes() {
+        List<Employees> listaJefes = employeesRepository.findAll();
+        Employees e = new Employees();
+        e.setEmployeeId(0);
+        e.setFirstName("--No tiene Jefe--");
+        listaJefes.add(0, e);
+        return listaJefes;
+    }
 
-        //COMPLETAR
+    @GetMapping("/edit")
+    public String editarEmpleado(@ModelAttribute("employee") Employees employee, Model model, @RequestParam("id") int id) {
+        Optional<Employees> optional = employeesRepository.findById(id);
+
+        if (optional.isPresent()) {
+            employee = optional.get();
+            model.addAttribute("employee", employee);
+            model.addAttribute("listaJefes", getListaJefes());
+            return "employee/Frm";
+        } else {
+            return "redirect:/employee";
+        }
+
     }
 
     @GetMapping("/delete")
@@ -101,6 +122,7 @@ public class EmployeeController {
     public String buscar (){
 
         //COMPLETAR
+        return "employee/lista";
     }
 
 }

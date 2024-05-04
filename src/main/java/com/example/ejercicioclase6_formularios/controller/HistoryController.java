@@ -1,4 +1,4 @@
-package com.example.laboratorio4.controller;
+package com.example.ejercicioclase6_formularios.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,7 @@ public class HistoryController {
     @GetMapping(value = {"","/"})
     public String historialEmpleado(){
         //COMPLETAR
+        return "history/lista";
     }
 
 

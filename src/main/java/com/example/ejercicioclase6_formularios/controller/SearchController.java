@@ -1,4 +1,4 @@
-package com.example.laboratorio4.controller;
+package com.example.ejercicioclase6_formularios.controller;
 
 
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,7 @@ public class SearchController {
     public String buscar (){
 
         //COMPLETAR
+        return "Search/indice";
     }
 
     @GetMapping(value = "/Filtro2")

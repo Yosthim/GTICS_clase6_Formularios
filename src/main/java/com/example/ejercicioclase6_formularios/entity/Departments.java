@@ -1,6 +1,6 @@
-package com.example.laboratorio4.entity;
+package com.example.ejercicioclase6_formularios.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="departments")

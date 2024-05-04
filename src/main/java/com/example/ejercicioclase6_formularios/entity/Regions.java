@@ -1,9 +1,6 @@
-package com.example.laboratorio4.entity;
+package com.example.ejercicioclase6_formularios.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "regions")
