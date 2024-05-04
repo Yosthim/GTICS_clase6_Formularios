@@ -89,13 +89,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/edit")
-    public String editarEmpleado(@ModelAttribute("employee") Employees employee, Model model, @RequestParam("id") int id) {
+    public String editarEmpleado(@ModelAttribute("employees") Employees employees, Model model, @RequestParam("id") int id) {
         Optional<Employees> optional = employeesRepository.findById(id);
 
         if (optional.isPresent()) {
-            employee = optional.get();
-            model.addAttribute("employee", employee);
+            employees = optional.get();
+            model.addAttribute("employees", employees);
             model.addAttribute("listaJefes", getListaJefes());
+            model.addAttribute("type", "edit");
             return "employee/Frm";
         } else {
             return "redirect:/employee";

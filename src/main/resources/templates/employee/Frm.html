@@ -12,7 +12,33 @@
 
     <div class="container">
         <h2 th:text="${type == 'new' ? 'Nuevo Empleado' : 'Editar Empleado'}"></h2>
-
+        <form method="post" th:action="@{'/employee/save'}" th:object="${employees}">
+            <div class="row">
+                <input th:field="*{employeeId}" type="hidden">
+                <div class="form-group col-lg-6">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" type="text" id="nombre" th:field="*{firstName}">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="apellido">Apellido</label>
+                    <input class="form-control" type="text" id="apellido" th:field="*{lastName}">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="correo">Correo Electrónico</label>
+                    <input class="form-control" type="text" id="correo" th:field="*{email}">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="contraseña">Contraseña</label>
+                    <input class="form-control" type="password" id="contraseña" th:field="*{password}">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="cargo">Cargo</label>
+                    <select id="cargo" class="form-control" name="job" th:field="*{job}">
+                        <option ></option>
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
 
 </body>
